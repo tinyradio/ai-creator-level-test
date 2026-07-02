@@ -282,25 +282,6 @@
     display: block;
     transition: opacity 0.3s ease;
   }
-  .spot-spark {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--wds-bg-normal);
-    box-shadow: var(--wds-shadow-small);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--spot-color, var(--wds-primary-normal));
-    animation: sparkPulse 1.6s ease-in-out infinite;
-  }
-  @keyframes sparkPulse {
-    0%, 100% { transform: scale(1) rotate(0); }
-    50% { transform: scale(1.15) rotate(12deg); }
-  }
   .spot-pill {
     display: inline-flex;
     align-items: center;
@@ -917,9 +898,6 @@
           <div class="spot-ring"></div>
           <div class="spot-badge">
             <img id="spot-img" alt="" />
-          </div>
-          <div class="spot-spark">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
           </div>
         </div>
         <span class="spot-pill" id="spot-pill">LV.1 · 왕왕왕초보</span>
