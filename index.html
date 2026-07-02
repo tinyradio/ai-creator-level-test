@@ -125,7 +125,8 @@
   /* WDS Button solid primary, xlarge */
   .btn-primary {
     width: 100%;
-    padding: 16px 24px;
+    height: 48px;
+    padding: 0 24px;
     background: var(--wds-primary-normal);
     color: #ffffff;
     font-size: 16px;
@@ -146,13 +147,17 @@
   /* WDS Button outlined assistive */
   .btn-ghost {
     width: 100%;
-    padding: 14px 24px;
+    height: 48px;
+    padding: 0 24px;
     background: var(--wds-bg-normal);
     border: 1px solid var(--wds-line-solid-normal);
     color: var(--wds-label-neutral);
     font-size: 15px;
     font-weight: 500;
     line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .btn-ghost:hover { background: var(--wds-fill-alternative); }
 
@@ -345,7 +350,7 @@
     padding-top: 8px;
   }
   .icon-btn {
-    width: 40px; height: 40px;
+    width: 48px; height: 48px;
     border-radius: 12px;
     border: 1px solid var(--wds-line-solid-normal);
     background: var(--wds-bg-normal);
@@ -794,14 +799,14 @@
     margin-top: 12px;
     padding: 16px;
     border-radius: 12px;
-    background: var(--wds-inverse-background);
-    color: var(--wds-inverse-label);
+    background: var(--wds-blue-95);
+    color: var(--wds-label-normal);
     font-size: 14px;
     font-weight: 400;
     line-height: 1.57;
     word-break: keep-all;
   }
-  .next-hint strong { color: var(--wds-blue-80); font-weight: 700; }
+  .next-hint strong { color: var(--wds-primary-strong); font-weight: 700; }
 
   .ladder-mini {
     display: flex;
