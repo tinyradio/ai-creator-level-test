@@ -623,7 +623,8 @@
     transform: scale(0);
     animation: badgePop 0.7s var(--ease) forwards 0.35s;
   }
-  .badge img {
+  .badge img,
+  .badge video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -967,7 +968,7 @@
       <div class="badge-wrap">
         <div class="badge-ring"></div>
         <div class="badge" id="badge">
-          <img id="badge-img" alt="" />
+          <video id="badge-video" muted loop autoplay playsinline preload="auto"></video>
         </div>
         <span class="badge-pill" id="badge-pill">LV.4 · 중수</span>
       </div>
@@ -1047,6 +1048,7 @@ const LEVELS = [
   {
     min: 0, max: 3, lv: 1, name: "왕왕왕초보", color: "#E52222", /* accent.foreground.red */
     img: "assets/level1.png",
+    video: "assets/level1.mp4",
     nick: "알을 깨기 직전의 병아리",
     desc: "AI가 뭔지 이제 막 알아가는 단계. 용어가 전부 외계어처럼 들려도 괜찮아요. 지금 이 테스트를 한 것 자체가 이미 첫 걸음이니까요.",
     hint: "오늘 아무 AI 툴이나 하나 켜서 <strong>아무거나 한 장</strong> 만들어보세요. 망해도 됩니다. 그게 레벨업의 시작이에요.",
@@ -1055,6 +1057,7 @@ const LEVELS = [
   {
     min: 4, max: 8, lv: 2, name: "왕초보", color: "#F55A00", /* accent.foreground.redOrange */
     img: "assets/level2.png",
+    video: "assets/level2.mp4",
     nick: "복붙 연금술사",
     desc: "남의 프롬프트를 복붙하다 운 좋으면 한 장 건지는 단계. 시행착오가 많지만, 사실 지금이 제일 재미있을 때이기도 해요.",
     hint: "복붙한 프롬프트에서 <strong>단어 하나씩만 바꿔보세요.</strong> 뭐가 결과를 바꾸는지 감이 오는 순간, 초보로 진화합니다.",
@@ -1063,6 +1066,7 @@ const LEVELS = [
   {
     min: 9, max: 13, lv: 3, name: "초보", color: "#D17600", /* accent.foreground.orange */
     img: "assets/level3.png",
+    video: "assets/level3.mp4",
     nick: "감 잡은 뉴비",
     desc: "원하는 결과를 어느 정도 뽑아내기 시작한 단계. 아직 기복은 있지만 스타일 따라하기 정도는 가능해요. 기본기가 붙고 있다는 증거!",
     hint: "잘 나온 결과물의 프롬프트를 <strong>기록하고 다시 재현</strong>해보세요. '어쩌다 잘 나옴'이 '항상 잘 나옴'이 되면 중수입니다.",
@@ -1071,6 +1075,7 @@ const LEVELS = [
   {
     min: 14, max: 18, lv: 4, name: "중수", color: "#009632", /* accent.foreground.green */
     img: "assets/level4.png",
+    video: "assets/level4.mp4",
     nick: "취향 장착 완료",
     desc: "원하는 결과를 의도적으로 만들고 수정까지 가능한 단계. 자기만의 취향과 기준이 생기기 시작했어요. 실패해도 스스로 해결하는 짬이 생겼네요.",
     hint: "이제 <strong>결과물의 퀄리티를 일정하게</strong> 유지하는 데 집중해보세요. 누가 봐도 '이 사람 거네' 싶어지면 고수입니다.",
@@ -1079,6 +1084,7 @@ const LEVELS = [
   {
     min: 19, max: 23, lv: 5, name: "고수", color: "#0098B2", /* accent.foreground.cyan */
     img: "assets/level5.png",
+    video: "assets/level5.mp4",
     nick: "동네 금손",
     desc: "결과물만 봐도 누구 작품인지 느껴지는 단계. '어떻게 했어요?'라는 질문을 받기 시작했고, 재현성과 완성도 모두 검증됐어요.",
     hint: "나만의 노하우를 <strong>시스템으로 정리</strong>해보세요. 툴이 바뀌어도 흔들리지 않는 나만의 방식이 생기면 초고수입니다.",
@@ -1087,6 +1093,7 @@ const LEVELS = [
   {
     min: 24, max: 27, lv: 6, name: "초고수", color: "#005EEB", /* accent.foreground.blue */
     img: "assets/level6.png",
+    video: "assets/level6.mp4",
     nick: "걸어다니는 시스템",
     desc: "자기만의 방식과 세계관이 있고, 툴이 바뀌어도 잘하는 단계. 강의, 협업, 브랜드 운영까지. 업계가 당신을 알아보기 시작했어요.",
     hint: "이제 남은 건 하나. <strong>새로운 문법을 만들어서</strong> 사람들이 따라오게 하는 것. 신의 영역이 코앞입니다.",
@@ -1095,6 +1102,7 @@ const LEVELS = [
   {
     min: 28, max: 30, lv: 7, name: "신", color: "#5B37ED", /* accent.foreground.violet */
     img: "assets/level7.png",
+    video: "assets/level7.mp4",
     nick: "트렌드 그 자체",
     desc: "새로운 문법과 스타일을 만들고, 사람들이 따라하는 단계. 당신이 곧 기준입니다. 이 테스트가 오히려 당신에게 평가받아야 할 것 같네요.",
     hint: "여기서 더 갈 곳은 없습니다. 대신 <strong>당신의 기준을 세상에 나눠주세요.</strong> 업계가 당신을 따라 움직이니까요.",
@@ -1491,8 +1499,11 @@ function showResult() {
 
   document.documentElement.style.setProperty("--level-color", level.color);
 
-  $("badge-img").src = level.img;
-  $("badge-img").alt = level.name + " 레벨 마스코트";
+  const bv = $("badge-video");
+  bv.poster = level.img;
+  bv.src = level.video;
+  bv.load();
+  bv.play().catch(() => {});
   $("badge-pill").textContent = "LV." + level.lv + " · " + level.name;
   $("result-nick").textContent = "“" + level.nick + "”";
   $("result-desc").textContent = level.desc;
