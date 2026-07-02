@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>나의 AI 창작 레벨 테스트</title>
+<meta name="description" content="1분 만에 알아보는 나의 AI 창작 레벨. 왕왕왕초보부터 신까지, 나는 지금 어디쯤일까?" />
+<meta property="og:title" content="나의 AI 창작 레벨 테스트" />
+<meta property="og:description" content="질문 10개, 1분 컷. 나의 AI 창작 레벨을 확인해보세요." />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  /* ================= WDS TOKENS (light theme, resolved) ================= */
+  :root {
+    /* semantic.primary */
+    --wds-primary-normal: #0066FF;
+    --wds-primary-strong: #005EEB;
+    --wds-primary-heavy: #0054D1;
+    /* semantic.label */
+    --wds-label-normal: #171719;
+    --wds-label-strong: #000000;
+    --wds-label-neutral: #2E2F33E0;
+    --wds-label-alternative: #37383C9C;
+    --wds-label-assistive: #37383C47;
+    /* semantic.background */
+    --wds-bg-normal: #ffffff;
+    --wds-bg-alternative: #F7F7F8;
+    /* semantic.line */
+    --wds-line-solid-normal: #E1E2E4;
+    --wds-line-solid-neutral: #EAEBEC;
+    --wds-line-solid-alternative: #F4F4F5;
+    /* semantic.fill */
+    --wds-fill-normal: #70737C14;
+    --wds-fill-strong: #70737C29;
+    --wds-fill-alternative: #70737C0D;
+    /* semantic.inverse */
+    --wds-inverse-background: #1B1C1E;
+    --wds-inverse-label: #F7F7F8;
+    --wds-inverse-primary: #3385FF;
+    /* atomic.blue tints */
+    --wds-blue-95: #EAF2FE;
+    --wds-blue-99: #F7FBFF;
+    --wds-blue-80: #9EC5FF;
+    /* semantic.elevation.shadow.normal */
+    --wds-shadow-small: 0px 2px 4px -2px #1717170F, 0px 4px 6px -1px #1717170F;
+    --wds-shadow-medium: 0px 4px 6px -2px #17171712, 0px 10px 15px -3px #17171712;
+    --wds-shadow-large: 0px 6px 10px -4px #17171714, 0px 16px 24px -6px #17171714;
+    --wds-shadow-spread-small: 0px 0px 60px 0px #1717171A;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--wds-bg-alternative);
+    color: var(--wds-label-normal);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100dvh;
+    padding: max(20px, env(safe-area-inset-top)) 0 max(32px, env(safe-area-inset-bottom));
+  }
+  .screen.is-active { display: flex; }
+
+  :focus-visible {
+    outline: 2px solid var(--wds-primary-normal);
+    outline-offset: 2px;
+  }
+
+  /* ---------- shared ---------- */
+
+  /* ContentBadge-style chip: caption1 12px bold */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--wds-fill-normal);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.34;
+    letter-spacing: 0.04em;
+    color: var(--wds-label-neutral);
+    width: fit-content;
+  }
+  .chip .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--wds-primary-normal);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.55; }
+  }
+
+  .btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 12px;
+    transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s ease, border-color 0.18s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+
+  /* WDS Button solid primary, xlarge */
+  .btn-primary {
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--wds-primary-normal);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    box-shadow: var(--wds-shadow-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { background: var(--wds-primary-strong); }
+  .btn-primary:active { background: var(--wds-primary-heavy); }
+  .btn-primary svg { transition: transform 0.25s var(--ease); }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  /* WDS Button outlined assistive */
+  .btn-ghost {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--wds-bg-normal);
+    border: 1px solid var(--wds-line-solid-normal);
+    color: var(--wds-label-neutral);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .btn-ghost:hover { background: var(--wds-fill-alternative); }
+
+  /* ---------- intro ---------- */
+  #screen-intro { justify-content: flex-start; }
+
+  .intro-top {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 16px 0;
+  }
+  .intro-top .chip { margin-left: auto; margin-right: auto; }
+
+  /* display3 36 / display2 40, bold */
+  .intro-title {
+    margin-top: 24px;
+    font-size: clamp(34px, 9.6vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.028em;
+    line-height: 1.3;
+    color: var(--wds-label-normal);
+    word-break: keep-all;
+  }
+  .intro-title .accent { color: var(--wds-primary-normal); }
+
+  /* body2 reading */
+  .intro-sub {
+    margin: 16px auto 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--wds-label-neutral);
+    max-width: 34ch;
+    text-align: center;
+    word-break: keep-all;
+  }
+
+  /* Card-wrapped level list */
+  .ladder {
+    margin-top: 32px;
+    background: var(--wds-bg-normal);
+    border: 1px solid var(--wds-line-solid-neutral);
+    border-radius: 16px;
+    box-shadow: var(--wds-shadow-small);
+    padding: 8px 20px;
+  }
+  .ladder-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: rise 0.6s var(--ease) forwards;
+    animation-delay: calc(var(--i) * 70ms + 200ms);
+  }
+  .ladder-row + .ladder-row { border-top: 1px solid var(--wds-line-solid-alternative); }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* ContentBadge: tinted bg + accent foreground text */
+  .ladder-tier {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.34;
+    color: var(--tier-color);
+    background: color-mix(in srgb, var(--tier-color) 9%, transparent);
+    border-radius: 6px;
+    padding: 4px 0;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .ladder-name { font-size: 14px; font-weight: 700; line-height: 1.43; letter-spacing: -0.01em; }
+  .ladder-tag { font-size: 13px; font-weight: 400; line-height: 1.39; color: var(--wds-label-alternative); }
+
+  .intro-bottom { display: flex; flex-direction: column; gap: 12px; }
+  .intro-meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.34;
+    color: var(--wds-label-alternative);
+  }
+  .intro-meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* ---------- intro hero spotlight ---------- */
+  .hero {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-spotlight {
+    position: relative;
+    width: 168px;
+    height: 168px;
+  }
+  .spot-ring {
+    position: absolute;
+    inset: -11px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--wds-line-solid-normal);
+    animation: spin 22s linear infinite;
+  }
+  .spot-badge {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--spot-color, var(--wds-primary-normal));
+    box-shadow: var(--wds-shadow-large);
+    border: 4px solid var(--wds-bg-normal);
+    outline: 3px solid var(--spot-color, var(--wds-primary-normal));
+    transition: outline-color 0.45s ease, background 0.45s ease;
+  }
+  .spot-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+  .spot-spark {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--wds-bg-normal);
+    box-shadow: var(--wds-shadow-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--spot-color, var(--wds-primary-normal));
+    animation: sparkPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes sparkPulse {
+    0%, 100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.15) rotate(12deg); }
+  }
+  .spot-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--spot-color, var(--wds-primary-normal));
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: 0.02em;
+    box-shadow: var(--wds-shadow-small);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    transition: background 0.45s ease;
+  }
+  .hero-caption {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: var(--wds-label-neutral);
+    text-align: center;
+  }
+  .hero-caption b { font-weight: 700; color: var(--wds-label-normal); }
+  .hero-strip {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  .strip-thumb {
+    appearance: none;
+    border: 2px solid transparent;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.45;
+    background: var(--wds-fill-normal);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .strip-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .strip-thumb:hover { opacity: 0.8; }
+  .strip-thumb.active {
+    opacity: 1;
+    transform: scale(1.18);
+    border-color: var(--t-color, var(--wds-primary-normal));
+    box-shadow: var(--wds-shadow-small);
+  }
+
+  /* ---------- quiz ---------- */
+  #screen-quiz { justify-content: flex-start; }
+
+  .quiz-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 8px;
+  }
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--wds-line-solid-normal);
+    background: var(--wds-bg-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--wds-label-neutral);
+    transition: transform 0.15s var(--ease), background 0.15s ease;
+    flex-shrink: 0;
+  }
+  .icon-btn:hover { background: var(--wds-fill-alternative); }
+  .icon-btn:active { transform: scale(0.94); }
+  .icon-btn:disabled { opacity: 0.35; cursor: default; }
+
+  .gauge {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--wds-fill-strong);
+    overflow: hidden;
+  }
+  .gauge-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: var(--wds-primary-normal);
+    transition: width 0.5s var(--ease);
+  }
+
+  .xp-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--wds-blue-95);
+    color: var(--wds-primary-strong);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.39;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .xp-pill.bump { animation: bump 0.4s var(--ease); }
+  @keyframes bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+
+  .xp-float {
+    position: absolute;
+    top: -6px;
+    right: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--wds-primary-normal);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .xp-float.go { animation: floatUp 0.9s var(--ease) forwards; }
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(4px) scale(0.8); }
+    25% { opacity: 1; transform: translateY(-10px) scale(1.05); }
+    100% { opacity: 0; transform: translateY(-32px) scale(1); }
+  }
+
+  .quiz-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+  }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  /* label1 14 bold */
+  .q-num {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    color: var(--wds-primary-normal);
+    font-variant-numeric: tabular-nums;
+  }
+  /* ContentBadge outlined: caption1 */
+  .q-axis {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.34;
+    color: var(--wds-label-alternative);
+    border-radius: 6px;
+    padding: 3px 8px;
+    background: var(--wds-fill-normal);
+  }
+
+  /* title3 24 bold */
+  .q-text {
+    margin-top: 16px;
+    font-size: clamp(22px, 6vw, 24px);
+    font-weight: 700;
+    letter-spacing: -0.023em;
+    line-height: 1.4;
+    word-break: keep-all;
+    min-height: 4.2em;
+    color: var(--wds-label-normal);
+  }
+
+  .q-card { transition: opacity 0.24s ease, transform 0.3s var(--ease); }
+  .q-card.leaving { opacity: 0; transform: translateX(-24px); }
+  .q-card.entering { opacity: 0; transform: translateX(24px); transition: none; }
+
+  .options {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  /* body2 15 medium options as selectable cards */
+  .option {
+    appearance: none;
+    font-family: inherit;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--wds-bg-normal);
+    border: 1px solid var(--wds-line-solid-normal);
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--wds-label-normal);
+    cursor: pointer;
+    line-height: 1.47;
+    word-break: keep-all;
+    transition: transform 0.16s var(--ease), border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.5s var(--ease) forwards;
+    animation-delay: calc(var(--i) * 65ms);
+  }
+  .option:hover {
+    border-color: var(--wds-primary-normal);
+    box-shadow: var(--wds-shadow-small);
+  }
+  .option:active { transform: scale(0.98); }
+  .option.picked {
+    border-color: var(--wds-primary-normal);
+    background: var(--wds-blue-99);
+    box-shadow: var(--wds-shadow-small);
+  }
+  .option-key {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--wds-fill-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--wds-label-alternative);
+    flex-shrink: 0;
+    transition: inherit;
+  }
+  .option.picked .option-key {
+    background: var(--wds-primary-normal);
+    color: #ffffff;
+  }
+
+  /* ---------- analyzing ---------- */
+  #screen-analyzing {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+  }
+  .orbit {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  .orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed var(--wds-line-solid-normal);
+    animation: spin 9s linear infinite;
+  }
+  .orbit-core {
+    position: absolute;
+    inset: 30px;
+    border-radius: 50%;
+    background: var(--wds-primary-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--wds-shadow-medium);
+    animation: corePulse 1.6s ease-in-out infinite;
+  }
+  .orbit-core svg { color: #ffffff; }
+  @keyframes corePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .orbit-sat {
+    position: absolute;
+    top: -6px;
+    left: calc(50% - 6px);
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--wds-primary-normal);
+    transform-origin: 6px 66px;
+    animation: spin 2.4s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  /* headline1 18 bold */
+  .analyzing-msg {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+    min-height: 1.5em;
+    transition: opacity 0.3s ease;
+  }
+  .analyzing-sub { font-size: 13px; color: var(--wds-label-alternative); font-weight: 500; line-height: 1.39; margin-top: -20px; }
+
+  /* ---------- result ---------- */
+  #screen-result { justify-content: flex-start; gap: 0; }
+
+  .result-reveal {
+    text-align: center;
+    padding-top: 32px;
+    opacity: 0;
+    animation: rise 0.7s var(--ease) forwards 0.1s;
+  }
+  /* caption1 12 bold */
+  .result-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.34;
+    letter-spacing: 0.18em;
+    color: var(--wds-label-alternative);
+  }
+
+  .badge-wrap {
+    margin: 24px auto 0;
+    position: relative;
+    width: 172px;
+    height: 172px;
+  }
+  .badge-ring {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--wds-line-solid-normal);
+    animation: spin 24s linear infinite;
+  }
+  .badge {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--level-color, var(--wds-primary-normal));
+    box-shadow: var(--wds-shadow-large);
+    border: 4px solid var(--wds-bg-normal);
+    outline: 3px solid var(--level-color, var(--wds-primary-normal));
+    transform: scale(0);
+    animation: badgePop 0.7s var(--ease) forwards 0.35s;
+  }
+  .badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @keyframes badgePop {
+    0% { transform: scale(0) rotate(-14deg); }
+    70% { transform: scale(1.07) rotate(2deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  .badge-pill {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--level-color, var(--wds-primary-normal));
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.39;
+    letter-spacing: 0.06em;
+    box-shadow: var(--wds-shadow-small);
+    border: 2px solid var(--wds-bg-normal);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    opacity: 0;
+    animation: pillRise 0.5s var(--ease) forwards 0.75s;
+  }
+  @keyframes pillRise {
+    from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* title2 28 bold */
+  .result-nick {
+    margin-top: 24px;
+    font-size: clamp(24px, 7vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: 1.36;
+    word-break: keep-all;
+    color: var(--wds-label-strong);
+  }
+  /* body2 reading */
+  .result-desc {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--wds-label-neutral);
+    word-break: keep-all;
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stat-strip {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--wds-line-solid-neutral);
+    border-radius: 16px;
+    background: var(--wds-bg-normal);
+    box-shadow: var(--wds-shadow-small);
+    overflow: hidden;
+    opacity: 0;
+    animation: rise 0.6s var(--ease) forwards 0.55s;
+  }
+  .stat-cell {
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .stat-cell + .stat-cell { border-left: 1px solid var(--wds-line-solid-neutral); }
+  /* caption1 */
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.34;
+    color: var(--wds-label-alternative);
+  }
+  /* title3 24 bold */
+  .stat-value {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.34;
+    letter-spacing: -0.023em;
+    font-variant-numeric: tabular-nums;
+    color: var(--wds-label-normal);
+  }
+  .stat-value small { font-size: 14px; font-weight: 700; color: var(--wds-label-alternative); }
+
+  .panel {
+    margin-top: 16px;
+    border: 1px solid var(--wds-line-solid-neutral);
+    border-radius: 16px;
+    background: var(--wds-bg-normal);
+    box-shadow: var(--wds-shadow-small);
+    padding: 24px 20px;
+    opacity: 0;
+    animation: rise 0.6s var(--ease) forwards 0.7s;
+  }
+  /* headline1 18 bold */
+  .panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: var(--wds-label-normal);
+  }
+
+  .radar-wrap { display: flex; justify-content: center; padding: 8px 0 0; }
+  .radar-label {
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--wds-label-neutral);
+  }
+  .radar-poly {
+    fill: color-mix(in srgb, var(--level-color, var(--wds-primary-normal)) 14%, transparent);
+    stroke: var(--level-color, var(--wds-primary-normal));
+    stroke-width: 2;
+    stroke-linejoin: round;
+    transform-origin: 130px 120px;
+    transform: scale(0);
+    animation: badgePop 0.8s var(--ease) forwards 0.9s;
+  }
+  .radar-dot {
+    fill: var(--level-color, var(--wds-primary-normal));
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards 1.4s;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .trait-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .trait {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--wds-bg-alternative);
+  }
+  .trait-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+  .trait-icon.up { background: var(--level-color, var(--wds-primary-normal)); }
+  .trait-icon.grow { background: var(--wds-fill-strong); color: var(--wds-label-alternative); }
+  /* caption1 / label1 */
+  .trait-head { font-size: 12px; font-weight: 500; line-height: 1.34; color: var(--wds-label-alternative); }
+  .trait-body { font-size: 14px; font-weight: 700; line-height: 1.43; letter-spacing: -0.01em; margin-top: 2px; word-break: keep-all; color: var(--wds-label-normal); }
+
+  /* inverse surface (Tooltip-style) */
+  .next-hint {
+    margin-top: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--wds-inverse-background);
+    color: var(--wds-inverse-label);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.57;
+    word-break: keep-all;
+  }
+  .next-hint strong { color: var(--wds-blue-80); font-weight: 700; }
+
+  .ladder-mini {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .ladder-mini .step {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--wds-fill-strong);
+    position: relative;
+    overflow: hidden;
+  }
+  .ladder-mini .step.on::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--level-color, var(--wds-primary-normal));
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: fillStep 0.4s var(--ease) forwards;
+    animation-delay: calc(var(--i) * 90ms + 800ms);
+  }
+  @keyframes fillStep { to { transform: scaleX(1); } }
+  .ladder-mini-caption {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.37;
+    color: var(--wds-label-alternative);
+  }
+
+  .result-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    animation: rise 0.6s var(--ease) forwards 0.9s;
+    padding-bottom: 8px;
+  }
+
+  /* Toast: inverse surface, body2 medium */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--wds-inverse-background);
+    color: var(--wds-inverse-label);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: var(--wds-shadow-large);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s var(--ease);
+    z-index: 1300;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  #confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1200;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<div class="app">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen is-active" id="screen-intro">
+    <div class="intro-top">
+      <h1 class="intro-title">
+        AI 창작 레벨,<br />
+        나는 <span class="accent">어디쯤일까?</span>
+      </h1>
+
+      <div class="hero">
+        <div class="hero-spotlight">
+          <div class="spot-ring"></div>
+          <div class="spot-badge">
+            <img id="spot-img" alt="" />
+          </div>
+          <div class="spot-spark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
+          </div>
+        </div>
+        <span class="spot-pill" id="spot-pill">LV.1 · 왕왕왕초보</span>
+        <div class="hero-strip" id="hero-strip"></div>
+        <p class="hero-caption">이 <b>7단계 진화</b> 중, 지금 당신은 누구?</p>
+      </div>
+    </div>
+
+    <div class="intro-bottom">
+      <button class="btn btn-primary" id="btn-start">
+        내 레벨 확인하기
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <div class="intro-meta">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          소요시간 약 1분
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="screen" id="screen-quiz">
+    <div class="quiz-head">
+      <button class="icon-btn" id="btn-back" aria-label="이전 질문">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="gauge"><div class="gauge-fill" id="gauge-fill"></div></div>
+      <div class="xp-pill" id="xp-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
+        <span id="xp-value">0</span> XP
+        <span class="xp-float" id="xp-float"></span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-card" id="q-card">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Q1 / 10</span>
+          <span class="q-axis" id="q-axis"></span>
+        </div>
+        <h2 class="q-text" id="q-text"></h2>
+        <div class="options" id="options"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANALYZING ============ -->
+  <section class="screen" id="screen-analyzing">
+    <div class="orbit">
+      <div class="orbit-ring"></div>
+      <div class="orbit-sat"></div>
+      <div class="orbit-core">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
+      </div>
+    </div>
+    <p class="analyzing-msg" id="analyzing-msg">답변을 스캔하는 중</p>
+    <p class="analyzing-sub">잠깐이면 됩니다. 도망가지 마세요</p>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="screen" id="screen-result">
+    <div class="result-reveal">
+      <p class="result-kicker">LEVEL UNLOCKED</p>
+      <div class="badge-wrap">
+        <div class="badge-ring"></div>
+        <div class="badge" id="badge">
+          <img id="badge-img" alt="" />
+        </div>
+        <span class="badge-pill" id="badge-pill">LV.4 · 중수</span>
+      </div>
+      <h2 class="result-nick" id="result-nick"></h2>
+      <p class="result-desc" id="result-desc"></p>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <p class="stat-label">획득 XP</p>
+        <p class="stat-value"><span id="stat-xp">0</span><small> XP</small></p>
+      </div>
+      <div class="stat-cell">
+        <p class="stat-label">전체 창작자 중</p>
+        <p class="stat-value">상위 <span id="stat-pct">0</span><small>%</small></p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <p class="panel-title">능력치 분석</p>
+      <div class="radar-wrap" id="radar-wrap"></div>
+      <div class="trait-grid">
+        <div class="trait">
+          <div class="trait-icon up">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+          </div>
+          <div>
+            <p class="trait-head">가장 강한 스탯</p>
+            <p class="trait-body" id="trait-strong"></p>
+          </div>
+        </div>
+        <div class="trait">
+          <div class="trait-icon grow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M12 21v.01M7 8l5-5 5 5"/></svg>
+          </div>
+          <div>
+            <p class="trait-head">키우면 각성하는 스탯</p>
+            <p class="trait-body" id="trait-weak"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.8s;">
+      <p class="panel-title">다음 레벨까지</p>
+      <div class="ladder-mini" id="ladder-mini"></div>
+      <div class="ladder-mini-caption"><span>왕왕왕초보</span><span>신</span></div>
+      <div class="next-hint" id="next-hint"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-primary" id="btn-share">
+        결과 공유하고 친구 소환하기
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.7 10.7l6.6-3.4M8.7 13.3l6.6 3.4"/></svg>
+      </button>
+      <button class="btn btn-ghost" id="btn-retry">처음부터 다시 하기</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+/* ================= DATA ================= */
+
+const AXES = [
+  { key: "repro",  label: "재현성" },
+  { key: "intent", label: "의도성" },
+  { key: "finish", label: "완성도" },
+  { key: "keep",   label: "지속성" },
+  { key: "impact", label: "영향력" },
+];
+
+/* Level identity colors: WDS semantic.accent.foreground tokens */
+const LEVELS = [
+  {
+    min: 0, max: 3, lv: 1, name: "왕왕왕초보", color: "#E52222", /* accent.foreground.red */
+    img: "assets/level1.png",
+    nick: "알을 깨기 직전의 병아리",
+    desc: "AI가 뭔지 이제 막 알아가는 단계. 용어가 전부 외계어처럼 들려도 괜찮아요. 지금 이 테스트를 한 것 자체가 이미 첫 걸음이니까요.",
+    hint: "오늘 아무 AI 툴이나 하나 켜서 <strong>아무거나 한 장</strong> 만들어보세요. 망해도 됩니다. 그게 레벨업의 시작이에요.",
+    pct: 95,
+  },
+  {
+    min: 4, max: 8, lv: 2, name: "왕초보", color: "#F55A00", /* accent.foreground.redOrange */
+    img: "assets/level2.png",
+    nick: "복붙 연금술사",
+    desc: "남의 프롬프트를 복붙하다 운 좋으면 한 장 건지는 단계. 시행착오가 많지만, 사실 지금이 제일 재미있을 때이기도 해요.",
+    hint: "복붙한 프롬프트에서 <strong>단어 하나씩만 바꿔보세요.</strong> 뭐가 결과를 바꾸는지 감이 오는 순간, 초보로 진화합니다.",
+    pct: 78,
+  },
+  {
+    min: 9, max: 13, lv: 3, name: "초보", color: "#D17600", /* accent.foreground.orange */
+    img: "assets/level3.png",
+    nick: "감 잡은 뉴비",
+    desc: "원하는 결과를 어느 정도 뽑아내기 시작한 단계. 아직 기복은 있지만 스타일 따라하기 정도는 가능해요. 기본기가 붙고 있다는 증거!",
+    hint: "잘 나온 결과물의 프롬프트를 <strong>기록하고 다시 재현</strong>해보세요. '어쩌다 잘 나옴'이 '항상 잘 나옴'이 되면 중수입니다.",
+    pct: 55,
+  },
+  {
+    min: 14, max: 18, lv: 4, name: "중수", color: "#009632", /* accent.foreground.green */
+    img: "assets/level4.png",
+    nick: "취향 장착 완료",
+    desc: "원하는 결과를 의도적으로 만들고 수정까지 가능한 단계. 자기만의 취향과 기준이 생기기 시작했어요. 실패해도 스스로 해결하는 짬이 생겼네요.",
+    hint: "이제 <strong>결과물의 퀄리티를 일정하게</strong> 유지하는 데 집중해보세요. 누가 봐도 '이 사람 거네' 싶어지면 고수입니다.",
+    pct: 32,
+  },
+  {
+    min: 19, max: 23, lv: 5, name: "고수", color: "#0098B2", /* accent.foreground.cyan */
+    img: "assets/level5.png",
+    nick: "동네 금손",
+    desc: "결과물만 봐도 누구 작품인지 느껴지는 단계. '어떻게 했어요?'라는 질문을 받기 시작했고, 재현성과 완성도 모두 검증됐어요.",
+    hint: "나만의 노하우를 <strong>시스템으로 정리</strong>해보세요. 툴이 바뀌어도 흔들리지 않는 나만의 방식이 생기면 초고수입니다.",
+    pct: 12,
+  },
+  {
+    min: 24, max: 27, lv: 6, name: "초고수", color: "#005EEB", /* accent.foreground.blue */
+    img: "assets/level6.png",
+    nick: "걸어다니는 시스템",
+    desc: "자기만의 방식과 세계관이 있고, 툴이 바뀌어도 잘하는 단계. 강의, 협업, 브랜드 운영까지. 업계가 당신을 알아보기 시작했어요.",
+    hint: "이제 남은 건 하나. <strong>새로운 문법을 만들어서</strong> 사람들이 따라오게 하는 것. 신의 영역이 코앞입니다.",
+    pct: 4,
+  },
+  {
+    min: 28, max: 30, lv: 7, name: "신", color: "#5B37ED", /* accent.foreground.violet */
+    img: "assets/level7.png",
+    nick: "트렌드 그 자체",
+    desc: "새로운 문법과 스타일을 만들고, 사람들이 따라하는 단계. 당신이 곧 기준입니다. 이 테스트가 오히려 당신에게 평가받아야 할 것 같네요.",
+    hint: "여기서 더 갈 곳은 없습니다. 대신 <strong>당신의 기준을 세상에 나눠주세요.</strong> 업계가 당신을 따라 움직이니까요.",
+    pct: 1,
+  },
+];
+
+const QUESTIONS = [
+  {
+    axis: "intent",
+    text: "새벽 2시, 번뜩이는 아이디어가 떠올랐다. AI를 켠 나의 첫 마디는?",
+    options: [
+      { label: "“멋진 거 하나 만들어줘” (구체성 제로)", score: 0 },
+      { label: "어디서 본 프롬프트 복붙 후 살짝 수정", score: 1 },
+      { label: "스타일, 구도, 분위기까지 조목조목 설명", score: 2 },
+      { label: "내 전용 템플릿 소환, 변수만 교체하면 끝", score: 3 },
+    ],
+  },
+  {
+    axis: "repro",
+    text: "어쩌다 인생 결과물이 나왔다! 내일 똑같이 다시 만들 수 있을까?",
+    options: [
+      { label: "그건 신의 영역… 두 번은 없다", score: 0 },
+      { label: "100번 돌리면 비슷한 게 한 번쯤?", score: 1 },
+      { label: "프롬프트 저장해둬서 얼추 재현 가능", score: 2 },
+      { label: "눈 감고도 뽑음. 공정이 머릿속에 있음", score: 3 },
+    ],
+  },
+  {
+    axis: "finish",
+    text: "결과물이 90% 마음에 든다. 나머지 10%는 어떻게 해?",
+    options: [
+      { label: "90%면 감사하죠. 바로 저장", score: 0 },
+      { label: "될 때까지 다시 돌리는 무한 가챠", score: 1 },
+      { label: "부분 수정과 리터치로 직접 손봄", score: 2 },
+      { label: "그 10%를 위해 작업 방식 자체를 뜯어고침", score: 3 },
+    ],
+  },
+  {
+    axis: "keep",
+    text: "최근 한 달 동안 AI로 뭔가를 만든 횟수는?",
+    options: [
+      { label: "한 달…? 계정 비밀번호도 가물가물", score: 0 },
+      { label: "생각나면 가끔. 한 달에 두어 번", score: 1 },
+      { label: "주 1회 이상 꾸준히 만드는 중", score: 2 },
+      { label: "안 만든 날을 세는 게 더 빠름", score: 3 },
+    ],
+  },
+  {
+    axis: "impact",
+    text: "내가 만든 결과물, 사람들의 반응은?",
+    options: [
+      { label: "아직 나만 봄 (비공개 소장 전용)", score: 0 },
+      { label: "가족이나 친구가 “오, 신기하네”", score: 1 },
+      { label: "“이거 어떻게 만들었어요?” 질문이 옴", score: 2 },
+      { label: "내 방식을 따라 하는 사람들이 생김", score: 3 },
+    ],
+  },
+  {
+    axis: "intent",
+    text: "“톤앤매너 맞춰서 시리즈로 만들어주세요” 라는 요청을 받는다면?",
+    options: [
+      { label: "톤앤… 뭐요?", score: 0 },
+      { label: "시도는 하는데 결과는 매번 복불복", score: 1 },
+      { label: "레퍼런스와 키워드 조합으로 통제 가능", score: 2 },
+      { label: "시리즈용 세계관 설정집이 이미 있음", score: 3 },
+    ],
+  },
+  {
+    axis: "repro",
+    text: "잘 쓰던 AI 툴이 하루아침에 서비스 종료. 나의 반응은?",
+    options: [
+      { label: "그럼 저도 여기서 은퇴하겠습니다", score: 0 },
+      { label: "멘붕… 새 툴 적응에 한 세월 걸릴 듯", score: 1 },
+      { label: "아쉽지만 다른 툴로 갈아타면 그만", score: 2 },
+      { label: "툴은 상관없음. 원리는 어차피 같으니까", score: 3 },
+    ],
+  },
+  {
+    axis: "finish",
+    text: "지금까지 만든 결과물을 나란히 놓고 보면?",
+    options: [
+      { label: "나란히 놓을 결과물이… 없는데요", score: 0 },
+      { label: "대박과 쪽박을 오가는 롤러코스터", score: 1 },
+      { label: "퀄리티가 꽤 일정하게 유지되는 편", score: 2 },
+      { label: "누가 봐도 “아 이 사람 거네” 싶은 시그니처", score: 3 },
+    ],
+  },
+  {
+    axis: "keep",
+    text: "AI 작업으로 돈이 오간 적 있어?",
+    options: [
+      { label: "돈은 제가 냅니다만 (구독료의 노예)", score: 0 },
+      { label: "아직은 취미. 근데 언젠가는 꼭!", score: 1 },
+      { label: "의뢰나 콜라보, 몇 번 해봤음", score: 2 },
+      { label: "클라이언트가 줄 서 있음. 강의도 함", score: 3 },
+    ],
+  },
+  {
+    axis: "impact",
+    text: "5년 뒤, AI 판에서 나의 모습을 상상해보면?",
+    options: [
+      { label: "그때도 열심히 구경하고 있을 듯", score: 0 },
+      { label: "취미로 소소하게 만들며 즐기는 중", score: 1 },
+      { label: "내 분야에서 ‘AI 잘 쓰는 사람’으로 소문남", score: 2 },
+      { label: "내가 만든 방식이 업계 표준이 되어 있음", score: 3 },
+    ],
+  },
+];
+
+const ANALYZING_MSGS = [
+  "답변을 스캔하는 중",
+  "프롬프트 근육량 측정 중",
+  "취향 데이터 대조 중",
+  "재현성 회로 점검 중",
+  "레벨 배지 굽는 중",
+];
+
+const XP_PER_ANSWER = [15, 40, 70, 100]; // by score 0-3
+
+/* ================= STATE ================= */
+
+const state = {
+  index: 0,
+  answers: new Array(QUESTIONS.length).fill(null),
+  xp: 0,
+};
+
+/* ================= ELEMENTS ================= */
+
+const $ = (id) => document.getElementById(id);
+const screens = {
+  intro: $("screen-intro"),
+  quiz: $("screen-quiz"),
+  analyzing: $("screen-analyzing"),
+  result: $("screen-result"),
+};
+
+function show(name) {
+  Object.values(screens).forEach((s) => s.classList.remove("is-active"));
+  screens[name].classList.add("is-active");
+  window.scrollTo({ top: 0 });
+  if (name === "intro") startHeroTimer();
+  else if (heroTimer) clearInterval(heroTimer);
+}
+
+/* preload level mascots so the result reveal never flashes */
+LEVELS.forEach((lv) => { const im = new Image(); im.src = lv.img; });
+
+/* ================= INTRO HERO SPOTLIGHT ================= */
+
+let spotIdx = 0;
+let heroTimer = null;
+
+function setSpotlight(i) {
+  spotIdx = i;
+  const lv = LEVELS[i];
+  const img = $("spot-img");
+  img.style.opacity = "0";
+  setTimeout(() => {
+    img.src = lv.img;
+    img.alt = "LV." + lv.lv + " " + lv.name + " 마스코트";
+    img.style.opacity = "1";
+  }, 160);
+  $("spot-pill").textContent = "LV." + lv.lv + " · " + lv.name;
+  document.documentElement.style.setProperty("--spot-color", lv.color);
+  $("hero-strip")
+    .querySelectorAll(".strip-thumb")
+    .forEach((el, idx) => el.classList.toggle("active", idx === i));
+}
+
+function startHeroTimer() {
+  if (heroTimer) clearInterval(heroTimer);
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  heroTimer = setInterval(() => setSpotlight((spotIdx + 1) % LEVELS.length), 1500);
+}
+
+(function buildHero() {
+  const strip = $("hero-strip");
+  LEVELS.forEach((lv, i) => {
+    const t = document.createElement("button");
+    t.className = "strip-thumb";
+    t.style.setProperty("--t-color", lv.color);
+    t.setAttribute("aria-label", "LV." + lv.lv + " " + lv.name + " 미리보기");
+    t.innerHTML = '<img src="' + lv.img + '" alt="" />';
+    t.addEventListener("click", () => {
+      setSpotlight(i);
+      startHeroTimer();
+    });
+    strip.appendChild(t);
+  });
+  setSpotlight(0);
+  startHeroTimer();
+})();
+
+/* ================= QUIZ ================= */
+
+const axisLabel = (key) => AXES.find((a) => a.key === key).label;
+
+function renderQuestion(direction) {
+  const card = $("q-card");
+  const q = QUESTIONS[state.index];
+
+  const paint = () => {
+    $("q-num").textContent = "Q" + (state.index + 1) + " / " + QUESTIONS.length;
+    $("q-axis").textContent = axisLabel(q.axis) + " 체크";
+    $("q-text").textContent = q.text;
+
+    const box = $("options");
+    box.innerHTML = "";
+    const keys = ["A", "B", "C", "D"];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.style.setProperty("--i", i);
+      if (state.answers[state.index] === i) btn.classList.add("picked");
+      btn.innerHTML = '<span class="option-key">' + keys[i] + "</span><span>" + opt.label + "</span>";
+      btn.addEventListener("click", () => pick(i, btn));
+      box.appendChild(btn);
+    });
+
+    $("gauge-fill").style.width = (state.index / QUESTIONS.length) * 100 + "%";
+  };
+
+  if (!direction) { paint(); return; }
+
+  card.classList.add("leaving");
+  setTimeout(() => {
+    paint();
+    card.classList.remove("leaving");
+    card.classList.add("entering");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        card.style.transition = "";
+        card.classList.remove("entering");
+      });
+    });
+  }, 220);
+}
+
+let locked = false;
+
+function pick(optIndex, btn) {
+  if (locked) return;
+  locked = true;
+
+  btn.classList.add("picked");
+  const q = QUESTIONS[state.index];
+  const prev = state.answers[state.index];
+  state.answers[state.index] = optIndex;
+
+  // XP: adjust if re-answering after going back
+  const gained = XP_PER_ANSWER[q.options[optIndex].score];
+  const removed = prev === null ? 0 : XP_PER_ANSWER[q.options[prev].score];
+  state.xp += gained - removed;
+  animateXp(gained);
+
+  setTimeout(() => {
+    locked = false;
+    if (state.index < QUESTIONS.length - 1) {
+      state.index += 1;
+      renderQuestion("next");
+    } else {
+      $("gauge-fill").style.width = "100%";
+      startAnalyzing();
+    }
+  }, 420);
+}
+
+function animateXp(gained) {
+  const pill = $("xp-pill");
+  const float = $("xp-float");
+  $("xp-value").textContent = state.xp;
+  pill.classList.remove("bump");
+  float.classList.remove("go");
+  void pill.offsetWidth;
+  float.textContent = "+" + gained;
+  pill.classList.add("bump");
+  float.classList.add("go");
+}
+
+$("btn-back").addEventListener("click", () => {
+  if (locked) return;
+  if (state.index === 0) {
+    show("intro");
+    return;
+  }
+  state.index -= 1;
+  renderQuestion("back");
+});
+
+$("btn-start").addEventListener("click", () => {
+  if (heroTimer) clearInterval(heroTimer);
+  show("quiz");
+  renderQuestion();
+});
+
+/* ================= ANALYZING ================= */
+
+function startAnalyzing() {
+  show("analyzing");
+  const msgEl = $("analyzing-msg");
+  let i = 0;
+  msgEl.textContent = ANALYZING_MSGS[0];
+  const timer = setInterval(() => {
+    i += 1;
+    if (i >= ANALYZING_MSGS.length) return;
+    msgEl.style.opacity = 0;
+    setTimeout(() => {
+      msgEl.textContent = ANALYZING_MSGS[i];
+      msgEl.style.opacity = 1;
+    }, 250);
+  }, 620);
+
+  setTimeout(() => {
+    clearInterval(timer);
+    showResult();
+  }, ANALYZING_MSGS.length * 620 + 400);
+}
+
+/* ================= SCORING ================= */
+
+function computeResult() {
+  const axisScores = {};
+  AXES.forEach((a) => (axisScores[a.key] = 0));
+  let total = 0;
+
+  QUESTIONS.forEach((q, i) => {
+    const picked = state.answers[i];
+    const s = picked === null ? 0 : q.options[picked].score;
+    axisScores[q.axis] += s;
+    total += s;
+  });
+
+  const level = LEVELS.find((lv) => total >= lv.min && total <= lv.max) || LEVELS[0];
+  return { total, axisScores, level };
+}
+
+/* ================= RADAR CHART ================= */
+
+function buildRadar(axisScores) {
+  const cx = 130, cy = 120, R = 82, MAX = 6;
+  const pt = (i, r) => {
+    const ang = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
+    return [cx + r * Math.cos(ang), cy + r * Math.sin(ang)];
+  };
+
+  let gridPolys = "";
+  [0.33, 0.66, 1].forEach((f) => {
+    const pts = AXES.map((_, i) => pt(i, R * f).join(",")).join(" ");
+    gridPolys += '<polygon points="' + pts + '" fill="none" stroke="#EAEBEC" stroke-width="1"/>';
+  });
+
+  let spokes = "";
+  AXES.forEach((_, i) => {
+    const [x, y] = pt(i, R);
+    spokes += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x + '" y2="' + y + '" stroke="#EAEBEC" stroke-width="1"/>';
+  });
+
+  let labels = "";
+  AXES.forEach((a, i) => {
+    const [x, y] = pt(i, R + 22);
+    labels += '<text class="radar-label" x="' + x + '" y="' + (y + 4) + '" text-anchor="middle">' + a.label + "</text>";
+  });
+
+  const valuePts = AXES.map((a, i) => {
+    const f = Math.max(axisScores[a.key] / MAX, 0.08);
+    return pt(i, R * f);
+  });
+  const polyStr = valuePts.map((p) => p.join(",")).join(" ");
+
+  let dots = "";
+  valuePts.forEach((p) => {
+    dots += '<circle class="radar-dot" cx="' + p[0] + '" cy="' + p[1] + '" r="3.5"/>';
+  });
+
+  return (
+    '<svg width="260" height="240" viewBox="0 0 260 240">' +
+    gridPolys + spokes + labels +
+    '<polygon class="radar-poly" points="' + polyStr + '"/>' +
+    dots +
+    "</svg>"
+  );
+}
+
+/* ================= RESULT ================= */
+
+let currentResult = null;
+
+function showResult() {
+  const { total, axisScores, level } = computeResult();
+  currentResult = { total, axisScores, level };
+
+  document.documentElement.style.setProperty("--level-color", level.color);
+
+  $("badge-img").src = level.img;
+  $("badge-img").alt = level.name + " 레벨 마스코트";
+  $("badge-pill").textContent = "LV." + level.lv + " · " + level.name;
+  $("result-nick").textContent = "“" + level.nick + "”";
+  $("result-desc").textContent = level.desc;
+  $("stat-pct").textContent = level.pct;
+  $("next-hint").innerHTML = level.hint;
+
+  // sorted axes for strong/weak
+  const sorted = [...AXES].sort((a, b) => axisScores[b.key] - axisScores[a.key]);
+  const strong = sorted[0];
+  const weak = sorted[sorted.length - 1];
+  $("trait-strong").textContent =
+    strong.label + " — " + traitComment(strong.key, true);
+  $("trait-weak").textContent =
+    weak.label + " — " + traitComment(weak.key, false);
+
+  $("radar-wrap").innerHTML = buildRadar(axisScores);
+
+  const mini = $("ladder-mini");
+  mini.innerHTML = "";
+  LEVELS.forEach((lv, i) => {
+    const step = document.createElement("div");
+    step.className = "step" + (lv.lv <= level.lv ? " on" : "");
+    step.style.setProperty("--i", i);
+    mini.appendChild(step);
+  });
+
+  show("result");
+  countUp($("stat-xp"), state.xp, 900);
+  fireConfetti(level.color);
+}
+
+function traitComment(key, isStrong) {
+  const map = {
+    repro:  { up: "한 번 잘 나온 걸 또 만들 줄 아는 사람", down: "‘어쩌다 대박’을 ‘늘 대박’으로 바꿔보세요" },
+    intent: { up: "원하는 그림이 머릿속에 뚜렷한 타입", down: "만들기 전에 ‘뭘 원하는지’부터 적어보세요" },
+    finish: { up: "디테일까지 챙기는 마무리 장인", down: "90%에서 멈추지 말고 한 끗을 더 챙겨보세요" },
+    keep:   { up: "꾸준함이 무기인 타입", down: "일주일에 한 번, 작게라도 만들어보세요" },
+    impact: { up: "사람들이 먼저 알아보는 타입", down: "결과물을 세상에 조금씩 공개해보세요" },
+  };
+  return isStrong ? map[key].up : map[key].down;
+}
+
+function shade(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = Math.min(255, Math.max(0, (n >> 16) + amt));
+  const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + amt));
+  const b = Math.min(255, Math.max(0, (n & 0xff) + amt));
+  return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, "0");
+}
+
+function countUp(el, target, duration) {
+  const start = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ================= CONFETTI ================= */
+
+function fireConfetti(baseColor) {
+  const canvas = $("confetti");
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  canvas.style.width = innerWidth + "px";
+  canvas.style.height = innerHeight + "px";
+  ctx.scale(dpr, dpr);
+
+  /* WDS palette: level accent + primary + inverse bg + white + tint */
+  const colors = [baseColor, "#0066FF", "#1B1C1E", "#ffffff", shade(baseColor, 70)];
+  const parts = [];
+  const N = 110;
+  for (let i = 0; i < N; i++) {
+    parts.push({
+      x: innerWidth / 2 + (Math.random() - 0.5) * 120,
+      y: innerHeight * 0.32,
+      vx: (Math.random() - 0.5) * 13,
+      vy: -Math.random() * 13 - 4,
+      w: 5 + Math.random() * 6,
+      h: 8 + Math.random() * 7,
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - 0.5) * 0.3,
+      color: colors[(Math.random() * colors.length) | 0],
+      life: 1,
+    });
+  }
+
+  let raf;
+  const step = () => {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    let alive = 0;
+    parts.forEach((p) => {
+      p.vy += 0.32;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.985;
+      p.rot += p.vr;
+      p.life -= 0.008;
+      if (p.life <= 0 || p.y > innerHeight + 30) return;
+      alive++;
+      ctx.save();
+      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if (alive > 0) raf = requestAnimationFrame(step);
+    else ctx.clearRect(0, 0, innerWidth, innerHeight);
+  };
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(step);
+}
+
+/* ================= SHARE / RETRY ================= */
+
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+$("btn-share").addEventListener("click", async () => {
+  if (!currentResult) return;
+  const { level } = currentResult;
+  const text =
+    "나의 AI 창작 레벨은 LV." + level.lv + " · " + level.name +
+    " “" + level.nick + "” (상위 " + level.pct + "%)\n" +
+    "너는 몇 레벨일까? 1분 컷 테스트 → " + location.href;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "나의 AI 창작 레벨 테스트", text });
+      return;
+    } catch (e) {
+      if (e.name === "AbortError") return;
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(text);
+    toast("결과가 복사됐어요. 아무 데나 붙여넣어 자랑하세요");
+  } catch (e) {
+    toast("복사에 실패했어요. 스크린샷으로 자랑해주세요");
+  }
+});
+
+$("btn-retry").addEventListener("click", () => {
+  state.index = 0;
+  state.answers.fill(null);
+  state.xp = 0;
+  $("xp-value").textContent = "0";
+  $("gauge-fill").style.width = "0%";
+  show("intro");
+});
+</script>
+</body>
+</html>
